@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>注册页面</h1>
+    <form action="">
+        用户名:
+        <input type="text" name="username" data-name="form"> <span></span></br>
+        手机号码:
+        <input type="text" name="tel" data-name="form"> <span></span></br>
+        邮箱:
+        <input type="text" name="email" data-name="form"> <span></span></br>
+        密码:
+        <input type="password" name="password" id="password2" data-name="form"> <span></span></br>
+        确认密码:
+        <input type="password" name="password2" id="password" data-name="form"> <span></span></br>
+        <input type="submit" value="提交">
+    </form>
+    <script src="jquery.min.js"></script>
+    <script>
+        // 2.0
+        // var json = {
+        //     "username": {
+        //         pass: /^[A-z0-9]{6,}/,
+        //         span: "格式正确",
+        //         span2: "请输入六位以上数字与字母"
+        //     },
+        //     "tel": {
+        //         pass: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
+        //         span: "格式正确",
+        //         span2: "请输入正确手机号码"
+        //     },
+        //     "email": {
+        //         pass: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+        //         span: "格式正确",
+        //         span2: "请输入正确邮箱"
+        //     },
+        //     "password": {
+        //         pass: /^[a-zA-Z0-9]\w{5,17}$/,
+        //         span: "格式正确",
+        //         span2: "请输入正确密码",
+        //         getid: "密码不一致"
+        //     },
+        //     "password2": {
+        //         pass: /^[a-zA-Z0-9]\w{5,17}$/,
+        //         span: "格式正确",
+        //         span2: "请输入正确密码",
+        //         getid: "密码不一致"
+        //     },
+        // }
+
+
+
+
+        // $("[data-name='form']").change(function() {
+        //     var Name = $(this).attr("name");
+        //     var val = $(this).val();
+        //     if (json[Name].pass.test(val)) {
+        //         $(this).next().text(json[Name].span);
+        //         json[Name].flag = true;
+        //     } else {
+        //         $(this).next().text(json[Name].span2);
+        //         json[Name].flag = false;
+        //     }
+        //     if ("getid" in json[Name]) {
+        //         if ($("#" + Name).val() == val) {
+        //             $(this).next().text(json[Name].span);
+        //             json[Name].flag = true;
+        //         } else {
+        //             $(this).next().text(json[Name].getid);
+        //             json[Name].flag = false;
+        //         }
+        //     }
+        // }).parent().submit(function() {
+        //     var flag = true;
+        //     for (var k in json) {
+        //         if (json[k].flag) {
+        //             flag = true;
+        //         } else {
+        //             flag = false;
+        //             break;
+        //         }
+        //     }
+        //     return flag;
+        // })
+
+
+        // 1.0
+        // $("input[name='username']").change(function(){
+        //     var val = $(this).val();
+        //     var pass = /^[A-z0-9]{6,}/;
+        //     if(pass.test(val)){
+        //         $(this).next().text("格式正确");
+        //     }else{
+        //         $(this).next().text("请输入六位以上数字与字母");
+        //     }
+        // })
+        // $("input[name='tel']").change(function(){
+        //     var val = $(this).val();
+        //     var pass = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+        //     if(pass.test(val)){
+        //         $(this).next().text("格式正确");
+        //     }else{
+        //         $(this).next().text("请输入正确手机号码");
+        //     }
+        // })
+        // $("input[name='email']").change(function(){
+        //     var val = $(this).val();
+        //     var pass = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        //     if(pass.test(val)){
+        //         $(this).next().text("格式正确");
+        //     }else{
+        //         $(this).next().text("请输入正确邮箱");
+        //     }
+        // })
+        // $("input[name='password']").change(function(){
+        //     var val = $(this).val();
+        //     var pass = /^[a-zA-Z0-9]\w{5,17}$/;
+        //     if(pass.test(val)){
+        //         $(this).next().text("格式正确");
+        //     }else{
+        //         $(this).next().text("请输入正确密码");
+        //     }
+        // })
+        // $("input[name='password2']").change(function(){
+        //     var val = $(this).val();
+        //     var pass = /^[a-zA-Z0-9]\w{5,17}$/;
+        //     if(pass.test(val)){
+        //         $(this).next().text("格式正确");
+        //     }else{
+        //         $(this).next().text("请输入正确密码");
+        //     }
+
+        //     if($("#password2").val() == val){
+        //         $(this).next().text("格式正确");
+        //     }else{
+        //         $(this).next().text("密码不一致");
+        //     }
+        // })
+
+        // 3.0
+        $.fn.extend({
+            form: function(json) {
+                $(this).change(function() {
+                    var Name = $(this).attr("name");
+                    var val = $(this).val();
+                    if (json[Name].pass.test(val)) {
+                        $(this).next().text(json[Name].span);
+                        json[Name].flag = true;
+                    } else {
+                        $(this).next().text(json[Name].span2);
+                        json[Name].flag = false;
+                    }
+                    if ("getid" in json[Name]) {
+                        if ($("#" + Name).val() == val) {
+                            $(this).next().text(json[Name].span);
+                            json[Name].flag = true;
+                        } else {
+                            $(this).next().text(json[Name].getid);
+                            json[Name].flag = false;
+                        }
+                    }
+                }).parent().submit(function() {
+                    var flag = true;
+                    for (var k in json) {
+                        if (json[k].flag) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                        }
+                    }
+                    return flag;
+                })
+            }
+        });
+        $('input[data-name="form"]').form({
+            "username": {
+                pass: /^[A-z0-9]{6,}/,
+                span: "格式正确",
+                span2: "请输入六位以上数字与字母"
+            },
+            "tel": {
+                pass: /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
+                span: "格式正确",
+                span2: "请输入正确手机号码"
+            },
+            "email": {
+                pass: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                span: "格式正确",
+                span2: "请输入正确邮箱"
+            },
+            "password": {
+                pass: /^[a-zA-Z0-9]\w{5,17}$/,
+                span: "格式正确",
+                span2: "请输入正确密码",
+                getid: "密码不一致"
+            },
+            "password2": {
+                pass: /^[a-zA-Z0-9]\w{5,17}$/,
+                span: "格式正确",
+                span2: "请输入正确密码",
+                getid: "密码不一致"
+            }
+        });
+    </script>
+</body>
+
+</html>
